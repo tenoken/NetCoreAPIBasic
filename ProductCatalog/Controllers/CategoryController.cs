@@ -20,6 +20,8 @@ namespace ProductCatalog.Controllers
 
         [Route("/v1/categories")]
         [HttpGet]
+        [ResponseCache(Duration = 60)]
+        //[ResponseCache(Duration = 60, Location = ResponseCacheLocation.Client)]
         public IEnumerable<Category> Get()
         {
             return _context.Categories.AsNoTracking().ToList();
