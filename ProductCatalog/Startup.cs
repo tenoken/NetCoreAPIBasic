@@ -27,6 +27,8 @@ namespace ProductCatalog
             services.AddScoped<StoreDataContext, StoreDataContext>();
             services.AddTransient<ProductRepository, ProductRepository>();
 
+
+
             services.AddSwaggerGen(x => 
             {
                 x.SwaggerDoc("v1", new OpenApiInfo { Title = "Tenoken Store", Version = "v1" });
@@ -56,6 +58,10 @@ namespace ProductCatalog
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Tenoken Store - V1");
             });
+
+            using (var scope =  app.ApplicationServices.CreateScope())
+            using (var context = scope.ServiceProvider.GetService<StoreDataContext>())
+                context.Database.EnsureCreated();
 
             //----
 
